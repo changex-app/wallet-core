@@ -1267,7 +1267,7 @@
   {
     "id": "binance",
     "name": "Binance",
-    "displayName": "BNB",
+    "displayName": "BNB Beacon Chain",
     "coinId": 714,
     "symbol": "BNB",
     "decimals": 8,
@@ -1822,6 +1822,7 @@
   {
     "id": "smartchain",
     "name": "Smart Chain",
+    "displayName": "BNB Smart Chain",
     "coinId": 20000714,
     "slip44": 714,
     "symbol": "BNB",
