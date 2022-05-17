@@ -20,6 +20,7 @@
 #include "Ethereum/Address.h"
 #include "Elrond/Address.h"
 #include "Kusama/Address.h"
+#include "NativeEvmos/Address.h"
 #include "NEAR/Address.h"
 #include "NEO/Address.h"
 #include "Nano/Address.h"
@@ -133,7 +134,8 @@ class AnyAddress {
         case TWCoinTypeKuCoinCommunityChain:
         case TWCoinTypeBoba:
         case TWCoinTypeMetis:
-        case TWCoinTypeAurora: {
+        case TWCoinTypeAurora:
+        case TWCoinTypeEvmos: {
             const auto addr = Ethereum::Address(string);
             return {addr.bytes.begin(), addr.bytes.end()};
         }
@@ -190,6 +192,13 @@ class AnyAddress {
         }
         case TWCoinTypeSolana: {
             return Solana::Address(string).vector();
+        }
+        case TWCoinTypeNativeEvmos: {
+            NativeEvmos::Address addr;
+            if (!NativeEvmos::Address::decode(string, addr)) {
+                break;
+            }
+            return addr.getKeyHash();
         }
         default:
             break;
