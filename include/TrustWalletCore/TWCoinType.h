@@ -109,6 +109,7 @@ enum TWCoinType {
     TWCoinTypeNativeEvmos = 20009001,
     TWCoinTypeMoonriver = 10001285,
     TWCoinTypeMoonbeam = 10001284,
+    TWCoinTypeKavaEvm = 10002222,
     TWCoinTypeKlaytn = 10008217,
 };
 
