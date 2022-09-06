@@ -1,4 +1,4 @@
-// Copyright © 2017-2021 Trust Wallet.
+// Copyright © 2017-2022 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -12,8 +12,7 @@
 #include "../Zcash/Transaction.h"
 #include "../Zcash/TransactionBuilder.h"
 
-using namespace TW;
-using namespace Bitcoin;
+namespace TW::Bitcoin {
 
 template <typename Transaction, typename TransactionBuilder>
 TransactionPlan TransactionSigner<Transaction, TransactionBuilder>::plan(const SigningInput& input) {
@@ -30,8 +29,8 @@ Result<Transaction, Common::Proto::SigningError> TransactionSigner<Transaction, 
     }
     auto transaction = TransactionBuilder::template build<Transaction>(plan, input.toAddress, input.changeAddress, input.coinType, input.lockTime);
     SigningMode signingMode =
-        estimationMode ? SigningMode_SizeEstimationOnly :
-        optionalExternalSigs.has_value() ? SigningMode_External : SigningMode_Normal;
+        estimationMode ? SigningMode_SizeEstimationOnly : optionalExternalSigs.has_value() ? SigningMode_External
+                                                                                           : SigningMode_Normal;
     SignatureBuilder<Transaction> signer(std::move(input), plan, transaction, signingMode, optionalExternalSigs);
     return signer.sign();
 }
@@ -56,4 +55,10 @@ Result<HashPubkeyList, Common::Proto::SigningError> TransactionSigner<Transactio
 // Explicitly instantiate a Signers for compatible transactions.
 template class Bitcoin::TransactionSigner<Bitcoin::Transaction, TransactionBuilder>;
 template class Bitcoin::TransactionSigner<Zcash::Transaction, Zcash::TransactionBuilder>;
+<<<<<<< HEAD
 template class Bitcoin::TransactionSigner<Groestlcoin::Transaction, TransactionBuilder>;
+=======
+template class Bitcoin::TransactionSigner<Groestlcoin::Transaction, TransactionBuilder>;
+
+} // namespace TW::Bitcoin
+>>>>>>> e5889a45 ([Fix] Even more fixes of namespace collisions in unity build (#2533))
