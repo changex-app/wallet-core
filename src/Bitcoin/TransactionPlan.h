@@ -9,7 +9,7 @@
 #include "Amount.h"
 #include "UTXO.h"
 #include "Script.h"
-#include "../Data.h"
+#include "Data.h"
 #include "../proto/Bitcoin.pb.h"
 
 namespace TW::Bitcoin {
