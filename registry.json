@@ -1934,7 +1934,8 @@
       "rpc": "https://data-seed-prebsc-1-s1.binance.org:8545",
       "documentation": "https://eth.wiki/json-rpc/API"
     },
-    "deprecated": true
+    "deprecated": true,
+    "testFolderName" : "Binance"
   },
   {
     "id": "smartchain",
@@ -1966,7 +1967,8 @@
       "source": "https://github.com/binance-chain/bsc",
       "rpc": "https://bsc-dataseed1.binance.org",
       "documentation": "https://eth.wiki/json-rpc/API"
-    }
+    },
+    "testFolderName" : "Binance"
   },
   {
     "id": "polygon",
@@ -2115,7 +2117,8 @@
       "source": "https://github.com/HuobiGroup/huobi-eco-chain",
       "rpc": "https://http-mainnet-node.huobichain.com",
       "documentation": "https://eth.wiki/json-rpc/API"
-    }
+    },
+    "testFolderName" : "ECO"
   },
   {
     "id": "avalanchec",
@@ -2145,7 +2148,8 @@
       "client": "https://github.com/ava-labs/avalanchego",
       "clientPublic": "https://api.avax.network/ext/bc/C/rpc",
       "clientDocs": "https://docs.avax.network/"
-    }
+    },
+    "testFolderName" : "Avalanche"
   },
   {
     "id": "xdai",
@@ -2392,7 +2396,8 @@
       "client": "https://github.com/crypto-org-chain/cronos",
       "clientPublic": "https://evm-cronos.crypto.org",
       "clientDocs": "https://eth.wiki/json-rpc/API"
-    }
+    },
+    "testFolderName" : "Cronos"
   },
   {
     "id": "kavaevm",
@@ -2450,7 +2455,8 @@
       "source": "https://github.com/smartbch/smartbch",
       "rpc": "https://smartbch.fountainhead.cash/mainnet",
       "documentation": "https://github.com/smartbch/docs/blob/main/developers-guide/jsonrpc.md"
-    }
+    },
+    "testFolderName" : "Bitcoin"
   },
   {
     "id": "kcc",
@@ -2480,7 +2486,8 @@
       "source": "https://github.com/kcc-community/kcc",
       "rpc": "https://rpc-mainnet.kcc.network",
       "documentation": "https://docs.kcc.io/#/en-us/"
-    }
+    },
+    "testFolderName" : "KuCoinCommunityChain"
   },
   {
     "id": "boba",
