@@ -3,6 +3,11 @@ syntax = "proto3";
 package TW.Ethereum.Proto;
 option java_package = "wallet.core.jni.proto";
 
+message ContractCallParam {
+    string type = 1;
+    repeated bytes value = 3;
+}
+
 // Transaction (transfer, smart contract call, ...)
 message Transaction {
     // Native coin transfer transaction
@@ -64,6 +69,11 @@ message Transaction {
         bytes data = 2;
     }
 
+    message ContractCall{
+        string function_name = 1;
+        repeated ContractCallParam parameters = 2;
+    }
+
     oneof transaction_oneof {
         Transfer transfer = 1;
         ERC20Transfer erc20_transfer = 2;
@@ -71,6 +81,7 @@ message Transaction {
         ERC721Transfer erc721_transfer = 4;
         ERC1155Transfer erc1155_transfer = 5;
         ContractGeneric contract_generic = 6;
+        ContractCall contract_call = 7;
     }
 }
 

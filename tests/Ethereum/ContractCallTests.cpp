@@ -5,12 +5,16 @@
 // file LICENSE at the root of the source code distribution tree.
 
 #include "Ethereum/ContractCall.h"
+#include "proto/Ethereum.pb.h"
 #include "HexCoding.h"
+#include "AnyAddress.h"
+
 
 #include <fstream>
 #include <gtest/gtest.h>
 
 using namespace TW;
+using namespace TW::Ethereum;
 using namespace TW::Ethereum::ABI;
 
 extern std::string TESTS_ROOT;
@@ -219,4 +223,51 @@ TEST(ContractCall, TupleNested) {
     auto expected =
         R"|({"function":"nested_tuple(uint16,(uint16,(uint16,uint64),uint32),bool)","inputs":[{"name":"param1","type":"uint16","value":"1"},{"components":[{"name":"param21","type":"uint16","value":"2"},{"components":[{"name":"param221","type":"uint16","value":"3"},{"name":"param222","type":"uint64","value":"4"}],"name":"param22","type":"tuple"},{"name":"param23","type":"uint32","value":"5"}],"name":"param2","type":"tuple"},{"name":"param3","type":"bool","value":true}]})|";
     EXPECT_EQ(decoded.value(), expected);
+}
+
+TEST(ContractCall, BuildContractCallStakeData){
+    
+    auto contractCallParam1 = ContractCallParam();
+    contractCallParam1.type = "address";
+    contractCallParam1.value.push_back(AnyAddress::dataFromString("0x6b175474e89094c44da98b954eedeac495271d0f", TWCoinTypeEthereum));
+
+
+    auto contractCallParam2 = ContractCallParam();
+    contractCallParam2.type = "uint256";
+    contractCallParam2.value.push_back(store(100000000000000));
+   
+    std::vector<ContractCallParam> params = {contractCallParam1, contractCallParam2};
+
+    Data res = buildContractCallData("stake", params);
+
+    {
+        ASSERT_EQ(hex(res), "adc9772e0000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000005af3107a4000");
+    }
+}
+TEST(ContractCall, BuildContractCallSwapData){
+    
+    auto contractCallParam1 = ContractCallParam();
+    contractCallParam1.type = "address[]";
+    contractCallParam1.value.push_back(AnyAddress::dataFromString("0x6b175474e89094c44da98b954eedeac495271d0f", TWCoinTypeEthereum));
+    contractCallParam1.value.push_back(AnyAddress::dataFromString("0x6b175474e89094c44da98b954eedeac495271d0f", TWCoinTypeEthereum));
+
+    auto contractCallParam2 = ContractCallParam();
+    contractCallParam2.type = "uint256";
+    contractCallParam2.value.push_back(store(31697866500));
+
+    auto contractCallParam3 = ContractCallParam();
+    contractCallParam3.type = "address";
+    contractCallParam3.value.push_back(AnyAddress::dataFromString("0x6b175474e89094c44da98b954eedeac495271d0f", TWCoinTypeEthereum));
+
+    auto contractCallParam4 = ContractCallParam();
+    contractCallParam4.type = "uint256";
+    contractCallParam4.value.push_back(store(20000000000));
+
+    std::vector<ContractCallParam> params = {contractCallParam2, contractCallParam1, contractCallParam3, contractCallParam4};
+
+    Data res = buildContractCallData("swapExactETHForTokens", params);
+
+    {
+        ASSERT_EQ(hex(res), "7ff36ab50000000000000000000000000000000000000000000000000000000761570f0400000000000000000000000000000000000000000000000000000000000000800000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000000004a817c80000000000000000000000000000000000000000000000000000000000000000020000000000000000000000006b175474e89094c44da98b954eedeac495271d0f0000000000000000000000006b175474e89094c44da98b954eedeac495271d0f");
+    }
 }

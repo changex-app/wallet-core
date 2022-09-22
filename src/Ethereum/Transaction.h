@@ -8,8 +8,11 @@
 
 #include "Address.h"
 #include "../uint256.h"
+#include "../proto/Ethereum.pb.h"
+#include "ContractCallParam.h"
 
 #include <memory>
+#include <vector>
 
 namespace TW::Ethereum {
 
@@ -80,6 +83,11 @@ public:
     static std::shared_ptr<TransactionNonTyped> buildERC1155Transfer(const uint256_t& nonce,
         const uint256_t& gasPrice, const uint256_t& gasLimit,
         const Data& tokenContract, const Data& from, const Data& to, const uint256_t& tokenId, const uint256_t& value, const Data& data);
+
+    static std::shared_ptr<TransactionNonTyped> buildContractCall(const uint256_t& nonce, 
+        const uint256_t& gasPrice, const uint256_t& gasLimit, 
+        const Data& tokenContract, const std::string& functionName, const std::vector<Proto::ContractCallParam>& params);
+
 
     // Helpers for building contract calls
     static Data buildERC20TransferCall(const Data& to, const uint256_t& amount);

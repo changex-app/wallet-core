@@ -7,10 +7,17 @@
 #pragma once
 
 #include "Data.h"
+#include "ABI.h"
+#include "ContractCallParam.h"
+
 #include <nlohmann/json.hpp>
 #include <optional>
 #include <string>
+#include <vector>
+#include <boost/algorithm/string/predicate.hpp>
+
 
 namespace TW::Ethereum::ABI {
     std::optional<std::string> decodeCall(const Data& call, const nlohmann::json& abi);
+    Data buildContractCallData(const std::string& functionName, const std::vector<ContractCallParam> params);
 } // namespace TW::Ethereum::ABI

@@ -209,7 +209,16 @@ std::shared_ptr<TransactionBase> Signer::build(const Proto::SigningInput& input)
                             /* data */ Data(input.transaction().erc1155_transfer().data().begin(), input.transaction().erc1155_transfer().data().end()));
                 }
             }
-
+        case Proto::Transaction::kContractCall:
+            switch (input.tx_mode()) {
+                    case Proto::TransactionMode::Legacy:
+                    default:
+                        return TransactionNonTyped::buildContractCall(
+                            nonce, gasPrice, gasLimit,
+                            /* to: */ toAddress,
+                            /* function name: */input.transaction().contract_call().function_name(),
+                            /* paramters: */ std::vector<Proto::ContractCallParam>(input.transaction().contract_call().parameters().begin(), input.transaction().contract_call().parameters().end()));
+            }
         case Proto::Transaction::kContractGeneric:
         default:
             {

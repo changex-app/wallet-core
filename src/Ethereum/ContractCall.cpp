@@ -5,7 +5,6 @@
 // file LICENSE at the root of the source code distribution tree.
 
 #include "ContractCall.h"
-#include "ABI.h"
 #include "HexCoding.h"
 #include "uint256.h"
 #include <boost/algorithm/string/predicate.hpp>
@@ -128,5 +127,44 @@ optional<string> decodeCall(const Data& call, const json& abi) {
     };
     return decoded.dump();
 }
+
+bool isArrayType(const std::string& type) {
+    return boost::algorithm::ends_with(type, "[]") && type.length() >= 3;
+}
+
+std::string getArrayElemType(const std::string& arrayType) {
+    if (isArrayType(arrayType)) {
+        return arrayType.substr(0, arrayType.length() - 2);
+    }
+    return "";
+}
+
+Data buildContractCallData(const std::string& functionName, const std::vector<ContractCallParam> params) {
+    std::vector<std::shared_ptr<Ethereum::ABI::ParamBase>> parameters;
+    for(auto& param: params){ 
+       auto abiParam = ParamFactory::make(param.type);
+        
+        if(isArrayType(param.type)){  //Check if the type is array
+            std::vector<std::shared_ptr<ParamBase>> vectorParams;
+            for(auto& paramValue : param.value){ // Iterate through every data in value
+                auto p = ParamFactory::make(getArrayElemType(param.type)); // Create new param of the required type
+                p->setValueJson(hexEncoded(paramValue)); // Set value to the param
+                vectorParams.push_back(p);
+            }
+            auto arr = std::make_shared<ParamArray>(vectorParams);  // Cast the parameter to type Array
+
+            abiParam = arr;
+        }else{
+            abiParam->setValueJson(hexEncoded(param.value[0]));     
+        }
+        parameters.push_back(abiParam);
+    }
+
+    auto func = Function(functionName, parameters);
+    Data payload;
+    func.encode(payload);
+    return payload;
+}
+
 
 } // namespace TW::Ethereum::ABI

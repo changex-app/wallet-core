@@ -140,7 +140,7 @@ TW::Bitcoin::Script Hydra::TokenScript::buildContractCallScript(int64_t gasLimit
                 p->setValueJson(hexEncoded(paramValue)); // Set value to the param
                 vectorParams.push_back(p);
             }
-            auto arr = make_shared<Ethereum::ABI::ParamArray>(vectorParams);  // Cast the parameter to type Array
+            auto arr = std::make_shared<Ethereum::ABI::ParamArray>(vectorParams);  // Cast the parameter to type Array
 
             abiParam = arr;
         }else{

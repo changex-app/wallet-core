@@ -5,6 +5,7 @@
 // file LICENSE at the root of the source code distribution tree.
 
 #include "Transaction.h"
+#include "ContractCall.h"
 #include "ABI/Function.h"
 #include "ABI/ParamBase.h"
 #include "ABI/ParamAddress.h"
@@ -47,6 +48,16 @@ std::shared_ptr<TransactionNonTyped> TransactionNonTyped::buildERC1155Transfer(c
     const Data& tokenContract, const Data& from, const Data& to, const uint256_t& tokenId, const uint256_t& value, const Data& data) {
     return std::make_shared<TransactionNonTyped>(nonce, gasPrice, gasLimit, tokenContract, 0, buildERC1155TransferFromCall(from, to, tokenId, value, data));
 }
+
+std::shared_ptr<TransactionNonTyped> TransactionNonTyped::buildContractCall(const uint256_t& nonce,
+    const uint256_t& gasPrice, const uint256_t& gasLimit, const Data& tokenContract, const std::string& functionName, const std::vector<Proto::ContractCallParam>& protoParams){
+        std::vector<ContractCallParam> params;
+        for(auto& pp: protoParams){
+            params.push_back(ContractCallParam(pp));
+        }
+        return std::make_shared<TransactionNonTyped>(nonce, gasPrice, gasLimit, tokenContract, 0, ABI::buildContractCallData(functionName, params));
+    }
+
 
 Data TransactionNonTyped::preHash(const uint256_t chainID) const {
     Data encoded;
@@ -119,6 +130,7 @@ Data TransactionNonTyped::buildERC1155TransferFromCall(const Data& from, const D
     func.encode(payload);
     return payload;
 }
+
 
 Data TransactionEip1559::preHash(const uint256_t chainID) const {
     Data encoded;
