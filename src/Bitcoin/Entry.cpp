@@ -151,7 +151,7 @@ Data Entry::addressToData(TWCoinType coin, const std::string& address) const {
     case TWCoinTypeViacoin: {
         const auto decoded = SegwitAddress::decode(address);
         if (!std::get<2>(decoded)) {
-            return Data();
+            return {};
         }
         return std::get<0>(decoded).witnessProgram;
     }
@@ -173,7 +173,7 @@ Data Entry::addressToData(TWCoinType coin, const std::string& address) const {
     }
 
     default:
-        return Data();
+        return {};
     }
 }
 
