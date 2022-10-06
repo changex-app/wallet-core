@@ -108,6 +108,9 @@ std::string Entry::deriveAddress(TWCoinType coin, TWDerivation derivation, const
 >>>>>>> 4394f3c0 (Format Bitcoin Entry sources)
             return Address(publicKey, p2pkh).string();
 
+        case TWDerivationBitcoinTestnet:
+            return SegwitAddress::createTestnetFromPublicKey(publicKey).string();
+
         case TWDerivationBitcoinSegwit:
         case TWDerivationDefault:
         default:
