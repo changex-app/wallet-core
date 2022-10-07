@@ -216,6 +216,7 @@ std::shared_ptr<TransactionBase> Signer::build(const Proto::SigningInput& input)
                         return TransactionNonTyped::buildContractCall(
                             nonce, gasPrice, gasLimit,
                             /* to: */ toAddress,
+                            /* amount: */ load(input.transaction().contract_call().amount()),
                             /* function name: */input.transaction().contract_call().function_name(),
                             /* paramters: */ std::vector<Proto::ContractCallParam>(input.transaction().contract_call().parameters().begin(), input.transaction().contract_call().parameters().end()));
             }

@@ -50,12 +50,12 @@ std::shared_ptr<TransactionNonTyped> TransactionNonTyped::buildERC1155Transfer(c
 }
 
 std::shared_ptr<TransactionNonTyped> TransactionNonTyped::buildContractCall(const uint256_t& nonce,
-    const uint256_t& gasPrice, const uint256_t& gasLimit, const Data& tokenContract, const std::string& functionName, const std::vector<Proto::ContractCallParam>& protoParams){
+    const uint256_t& gasPrice, const uint256_t& gasLimit, const Data& tokenContract, const uint256_t& amount, const std::string& functionName, const std::vector<Proto::ContractCallParam>& protoParams){
         std::vector<ContractCallParam> params;
         for(auto& pp: protoParams){
             params.push_back(ContractCallParam(pp));
         }
-        return std::make_shared<TransactionNonTyped>(nonce, gasPrice, gasLimit, tokenContract, 0, ABI::buildContractCallData(functionName, params));
+        return std::make_shared<TransactionNonTyped>(nonce, gasPrice, gasLimit, tokenContract, amount, ABI::buildContractCallData(functionName, params));
     }
 
 

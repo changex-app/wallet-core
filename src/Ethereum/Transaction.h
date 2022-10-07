@@ -86,7 +86,7 @@ public:
 
     static std::shared_ptr<TransactionNonTyped> buildContractCall(const uint256_t& nonce, 
         const uint256_t& gasPrice, const uint256_t& gasLimit, 
-        const Data& tokenContract, const std::string& functionName, const std::vector<Proto::ContractCallParam>& params);
+        const Data& tokenContract, const uint256_t& amount, const std::string& functionName, const std::vector<Proto::ContractCallParam>& params);
 
 
     // Helpers for building contract calls

@@ -70,8 +70,9 @@ message Transaction {
     }
 
     message ContractCall{
-        string function_name = 1;
-        repeated ContractCallParam parameters = 2;
+        bytes amount = 1;
+        string function_name = 2;
+        repeated ContractCallParam parameters = 3;
     }
 
     oneof transaction_oneof {
