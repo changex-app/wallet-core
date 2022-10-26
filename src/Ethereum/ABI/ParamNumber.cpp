@@ -51,7 +51,7 @@ bool ParamUInt8::setValueJson(const std::string& value) {
         return true;
     }
     uint16_t dest2;
-    if(!boost::conversion::detail::try_lexical_convert(str, dest2)){return false;}
+    if(!boost::conversion::detail::try_lexical_convert(value, dest2)){return false;}
     setVal(static_cast<uint8_t>(dest));
     return true;
 }
@@ -64,7 +64,7 @@ bool ParamInt8::setValueJson(const std::string& value) {
         return true;
     }
     int16_t dest2;
-    if(!boost::conversion::detail::try_lexical_convert(str, dest2)){return false;}
+    if(!boost::conversion::detail::try_lexical_convert(value, dest2)){return false;}
     setVal(static_cast<int8_t>(dest));
     return true;
 }
