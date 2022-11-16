@@ -233,15 +233,15 @@ TEST(ContractCall, BuildContractCallStakeData){
 
 
     auto contractCallParam2 = ContractCallParam();
-    contractCallParam2.type = "uint256";
-    contractCallParam2.value.push_back(store(100000000000000));
+    contractCallParam2.type = "uint8";
+    contractCallParam2.value.push_back(store(100));
    
     std::vector<ContractCallParam> params = {contractCallParam1, contractCallParam2};
 
     Data res = buildContractCallData("stake", params);
 
     {
-        ASSERT_EQ(hex(res), "adc9772e0000000000000000000000006b175474e89094c44da98b954eedeac495271d0f00000000000000000000000000000000000000000000000000005af3107a4000");
+        ASSERT_EQ(hex(res), "6ab28a9c0000000000000000000000006b175474e89094c44da98b954eedeac495271d0f0000000000000000000000000000000000000000000000000000000000000064");
     }
 }
 TEST(ContractCall, BuildContractCallSwapData){

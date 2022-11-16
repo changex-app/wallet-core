@@ -44,27 +44,15 @@ bool ParamBool::setValueJson(const std::string& value) {
 }
 
 bool ParamUInt8::setValueJson(const std::string& value) {
-    uint256_t dest;
-    if (value.length() >= 3 && value.substr(0, 2) == "0x") {
-        dest = ValueEncoder::uint256FromInt256(load(parse_hex(value)));
-        setVal(static_cast<uint8_t>(dest));
-        return true;
-    }
-    uint16_t dest2;
-    if(!boost::conversion::detail::try_lexical_convert(value, dest2)){return false;}
+    uint16_t dest;
+    if(!boost::conversion::detail::try_lexical_convert(value, dest)){return false;}
     setVal(static_cast<uint8_t>(dest));
     return true;
 }
 
 bool ParamInt8::setValueJson(const std::string& value) {
-    int256_t dest;
-    if (value.length() >= 3 && value.substr(0, 2) == "0x") {
-        dest = ValueEncoder::int256FromUint256(load(parse_hex(value)));
-        setVal(static_cast<int8_t>(dest));
-        return true;
-    }
-    int16_t dest2;
-    if(!boost::conversion::detail::try_lexical_convert(value, dest2)){return false;}
+    int16_t dest;
+    if(!boost::conversion::detail::try_lexical_convert(value, dest)){return false;}
     setVal(static_cast<int8_t>(dest));
     return true;
 }

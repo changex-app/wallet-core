@@ -118,6 +118,17 @@ Bitcoin::Script Hydra::TokenScript::buildTokenScript(int64_t gasLimit, const std
     return Bitcoin::Script(script);
 }
 
+bool isNumberType(const std::string& type) {
+    return type == "uint8"
+        || type == "uint16" 
+        || type == "uint32" 
+        || type == "uint64"
+        || type == "int8"
+        || type == "int16" 
+        || type == "int32" 
+        || type == "int64";
+}
+
 TW::Bitcoin::Script Hydra::TokenScript::buildContractCallScript(int64_t gasLimit, const std::string& function, std::vector<ContractCallParam>& params, const std::string contractAddress){
     
     Data script;
@@ -137,14 +148,22 @@ TW::Bitcoin::Script Hydra::TokenScript::buildContractCallScript(int64_t gasLimit
             std::vector<std::shared_ptr<Ethereum::ABI::ParamBase>> vectorParams;
             for(auto& paramValue : param.value){ // Iterate through every data in value
                 auto p = Ethereum::ABI::ParamFactory::make(getArrayElemType(param.type)); // Create new param of the required type
-                p->setValueJson(hexEncoded(paramValue)); // Set value to the param
+               if(isNumberType(param.type)){
+                    p->setValueJson(toString(load(paramValue)));
+                }else {
+                    p->setValueJson(hexEncoded(paramValue)); // Set value to the param
+                }
                 vectorParams.push_back(p);
             }
             auto arr = std::make_shared<Ethereum::ABI::ParamArray>(vectorParams);  // Cast the parameter to type Array
 
             abiParam = arr;
         }else{
-            abiParam->setValueJson(hexEncoded(param.value[0]));     
+            if(isNumberType(param.type)){
+                abiParam->setValueJson(toString(load(param.value[0])));
+            }else {
+                abiParam->setValueJson(hexEncoded(param.value[0])); // Set value to the param
+            }   
         }
         parameters.push_back(abiParam);
     }

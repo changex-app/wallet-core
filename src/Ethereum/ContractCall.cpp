@@ -139,6 +139,17 @@ std::string getArrayElemType(const std::string& arrayType) {
     return "";
 }
 
+bool isNumberType(const std::string& type) {
+    return type == "uint8"
+        || type == "uint16" 
+        || type == "uint32" 
+        || type == "uint64"
+        || type == "int8"
+        || type == "int16" 
+        || type == "int32" 
+        || type == "int64";
+}
+
 Data buildContractCallData(const std::string& functionName, const std::vector<ContractCallParam> params) {
     std::vector<std::shared_ptr<Ethereum::ABI::ParamBase>> parameters;
     for(auto& param: params){ 
@@ -148,14 +159,23 @@ Data buildContractCallData(const std::string& functionName, const std::vector<Co
             std::vector<std::shared_ptr<ParamBase>> vectorParams;
             for(auto& paramValue : param.value){ // Iterate through every data in value
                 auto p = ParamFactory::make(getArrayElemType(param.type)); // Create new param of the required type
-                p->setValueJson(hexEncoded(paramValue)); // Set value to the param
+                if(isNumberType(param.type)){
+                    p->setValueJson(toString(load(paramValue)));
+                }else {
+                    p->setValueJson(hexEncoded(paramValue)); // Set value to the param
+                }
+                
                 vectorParams.push_back(p);
             }
             auto arr = std::make_shared<ParamArray>(vectorParams);  // Cast the parameter to type Array
 
             abiParam = arr;
         }else{
-            abiParam->setValueJson(hexEncoded(param.value[0]));     
+           if(isNumberType(param.type)){
+                abiParam->setValueJson(toString(load(param.value[0])));
+            }else {
+                abiParam->setValueJson(hexEncoded(param.value[0])); // Set value to the param
+            }     
         }
         parameters.push_back(abiParam);
     }
