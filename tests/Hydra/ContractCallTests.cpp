@@ -141,8 +141,8 @@ TEST(Hydra, TestTokenTransactionBuilder){
     
     {
         ASSERT_EQ(plan.amount, 0);
-        ASSERT_EQ(plan.change, 12541168855);
-        ASSERT_EQ(plan.fee, 4013600);
+        ASSERT_EQ(plan.change, 12541982455);
+        ASSERT_EQ(plan.fee, 3200000);
         ASSERT_EQ(plan.utxos.size(), 1);
         ASSERT_EQ(transaction.outputs.size(), 2);
 
@@ -186,8 +186,8 @@ TEST(Hydra, TestContractCallTransactionBuilder){
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
     {
         ASSERT_EQ(plan.amount, 100000);
-        ASSERT_EQ(plan.change, 12536268855);
-        ASSERT_EQ(plan.fee, 8813600);
+        ASSERT_EQ(plan.change, 12537082455);
+        ASSERT_EQ(plan.fee, 8000000);
         ASSERT_EQ(plan.utxos.size(), 1);
         ASSERT_EQ(transaction.outputs.size(), 2);
 
@@ -230,9 +230,9 @@ TEST(Hydra, TestContractCallMaxAmountTransactionBuilder){
 
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
     {
-        ASSERT_EQ(plan.amount, 31688520096);
+        ASSERT_EQ(plan.amount, 31689866496);
         ASSERT_EQ(plan.change, 0);
-        ASSERT_EQ(plan.fee, 9346400);
+        ASSERT_EQ(plan.fee, 8000000);
         ASSERT_EQ(plan.utxos.size(), 2);
         ASSERT_EQ(transaction.outputs.size(), 1);
         ASSERT_EQ(plan.error, Common::Proto::SigningError::OK);
@@ -277,6 +277,6 @@ TEST(Hydra, TestTokenTransactionSigner){
 
     Data serialized;
     signedTx.encode(serialized);
-    ASSERT_EQ(hex(serialized),"01000000000101df60e3babacfce81c9efcb268c14a7d33efe567b0000000000000000000000000000000000ffffffff02d70c83eb0200000016001422e6014ad3631f1939281c3625bc98db808fbfb00000000000000000605403a0860144a9059cbb000000000000000000000000c3a87d9b1201a1cba90fba12c315a3d2f25ddc110000000000000000000000000000000000000000000000000000000000989680144ab26aaa1803daa638910d71075c06386e391147c202483045022100ab892a7ef616850a912be7d069853935511bd04ff8f7bb335d8cabb76be6f5ed022008bff521185772501d43d80611d03f00a46304b2d99be2cc13b55e1a7f3c3bcf0121025cf26d221b01ca4d6040893b96f1dabfd2a108d449b3fa62854421f98a42562b00000000");
+    ASSERT_EQ(hex(serialized),"01000000000101df60e3babacfce81c9efcb268c14a7d33efe567b0000000000000000000000000000000000ffffffff02f7768feb0200000016001422e6014ad3631f1939281c3625bc98db808fbfb00000000000000000605403a0860144a9059cbb000000000000000000000000c3a87d9b1201a1cba90fba12c315a3d2f25ddc110000000000000000000000000000000000000000000000000000000000989680144ab26aaa1803daa638910d71075c06386e391147c2024830450221008e2ca9ce2169e007cd6e8868753a371103d51c4d99a31e671fe9abac7f48bad60220348741f7a1ac55e511a9e6f207532851ed254a2b3286b64d274d19c52923317c0121025cf26d221b01ca4d6040893b96f1dabfd2a108d449b3fa62854421f98a42562b00000000");
 }
 

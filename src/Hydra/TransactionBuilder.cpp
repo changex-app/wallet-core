@@ -135,9 +135,6 @@ Bitcoin::TransactionPlan TransactionBuilder::plan(const TW::Hydra::SigningInput&
                 plan.error = Common::Proto::Error_not_enough_utxos;
             } else {
                 plan.availableAmount = Bitcoin::InputSelector<Bitcoin::UTXO>::sum(plan.utxos);
-
-                // Compute fee.                
-                plan.fee = estimateSegwitFee(feeCalculator, plan, output_size, signingInput);
                
                 // Check if the contract call is swap, if true get the 
                 if(contractCallInput.functionName == "swapExactHYDRAForTokens"){
