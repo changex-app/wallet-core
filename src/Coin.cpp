@@ -1,4 +1,4 @@
-// Copyright © 2017-2022 Trust Wallet.
+// Copyright © 2017-2023 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -58,6 +58,7 @@
 #include "Zilliqa/Entry.h"
 #include "Hedera/Entry.h"
 #include "TheOpenNetwork/Entry.h"
+#include "Sui/Entry.h"
 // end_of_coin_includes_marker_do_not_modify
 
 using namespace TW;
@@ -109,6 +110,7 @@ Nervos::Entry NervosDP;
 Everscale::Entry EverscaleDP;
 Hedera::Entry HederaDP;
 TheOpenNetwork::Entry tonDP;
+Sui::Entry SuiDP;
 // end_of_coin_dipatcher_declarations_marker_do_not_modify
 
 CoinEntry* coinDispatcher(TWCoinType coinType) {
@@ -162,6 +164,7 @@ CoinEntry* coinDispatcher(TWCoinType coinType) {
         case TWBlockchainAptos: entry = &AptosDP; break;
         case TWBlockchainHedera: entry = &HederaDP; break;
         case TWBlockchainTheOpenNetwork: entry = &tonDP; break;
+        case TWBlockchainSui: entry = &SuiDP; break;
         // end_of_coin_dipatcher_switch_marker_do_not_modify
 
         default: entry = nullptr; break;
