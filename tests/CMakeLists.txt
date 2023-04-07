@@ -21,7 +21,12 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/build/local/src/gtest/googletest-release-1.
 ##include_directories(${Protobuf_INCLUDE_DIRS})
 
 # Test executable
-file(GLOB_RECURSE test_sources *.cpp **/*.cpp **/*.cc)
+file(GLOB_RECURSE test_sources
+    LIST_DIRECTORIES false
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "*.cpp" "**/*.cpp" "**/*.cc"
+)
+list(FILTER test_sources EXCLUDE REGEX "CMakeFiles/3.*CompilerIdCXX/CMakeCXXCompilerId.cpp")
 add_executable(tests ${test_sources})
 target_link_libraries(tests gtest_main TrezorCrypto TrustWalletCore walletconsolelib protobuf Boost::boost)
 target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/src)

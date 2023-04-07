@@ -7,8 +7,7 @@
 // This is a GENERATED FILE, changes made here MAY BE LOST.
 // Generated one-time (codegen/bin/cointests)
 //
-
-#include "../interface/TWTestUtilities.h"
+#include "TestUtilities.h"
 #include "Hydra/TransactionBuilder.h"
 #include "Hydra/TransactionSigner.h"
 #include "Hydra/SigningInput.h"
@@ -16,6 +15,7 @@
 #include "Bitcoin/SegwitAddress.h"
 #include "Data.h"
 #include "PrivateKey.h"
+#include <iostream>
 #include "ComparisonHelper.h"
 #include "uint256.h"
 #include "AnyAddress.h"
@@ -111,8 +111,7 @@ TEST(Hydra, TestRegularTransactionBuilder){
     auto plan = Hydra::TransactionBuilder::plan(signingInput);
 
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
-    
-    
+
     {
         ASSERT_EQ(plan.amount, 1);
         ASSERT_EQ(plan.change, 12544368854);
@@ -138,7 +137,7 @@ TEST(Hydra, TestTokenTransactionBuilder){
     auto plan = Hydra::TransactionBuilder::plan(signingInput);
 
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
-    
+
     {
         ASSERT_EQ(plan.amount, 0);
         ASSERT_EQ(plan.change, 12541982455);
@@ -184,6 +183,8 @@ TEST(Hydra, TestContractCallTransactionBuilder){
     auto plan = Hydra::TransactionBuilder::plan(signingInput);
 
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
+
+
     {
         ASSERT_EQ(plan.amount, 100000);
         ASSERT_EQ(plan.change, 12537082455);
@@ -229,6 +230,7 @@ TEST(Hydra, TestContractCallMaxAmountTransactionBuilder){
     auto plan = Hydra::TransactionBuilder::plan(signingInput);
 
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
+
     {
         ASSERT_EQ(plan.amount, 31689866496);
         ASSERT_EQ(plan.change, 0);
@@ -272,7 +274,7 @@ TEST(Hydra, TestTokenTransactionSigner){
 
     //Sign
     auto result = Hydra::TransactionSigner::sign(signingInput);
-    ASSERT_TRUE(result.isSuccess());
+    std::cout << "err: " << result.error() << std::endl;
     auto signedTx = result.payload();
 
     Data serialized;

@@ -46,18 +46,19 @@ enum TWBlockchain {
     TWBlockchainFilecoin = 32,
     TWBlockchainMultiversX = 33,
     TWBlockchainOasisNetwork = 34,
-    TWBlockchainDecred = 35, // Bitcoin
-    TWBlockchainZcash = 36, // Bitcoin
+    TWBlockchainDecred = 35,      // Bitcoin
+    TWBlockchainZcash = 36,       // Bitcoin
     TWBlockchainGroestlcoin = 37, // Bitcoin
-    TWBlockchainThorchain = 38, // Cosmos
-    TWBlockchainRonin = 39, // Ethereum
-    TWBlockchainKusama = 40, // Polkadot
+    TWBlockchainThorchain = 38,   // Cosmos
+    TWBlockchainRonin = 39,       // Ethereum
+    TWBlockchainKusama = 40,      // Polkadot
     TWBlockchainNervos = 41,
     TWBlockchainEverscale = 42,
-    TWBlockchainAptos = 43, // Aptos
+    TWBlockchainAptos = 43,  // Aptos
     TWBlockchainHedera = 44, // Hedera
     TWBlockchainTheOpenNetwork = 45,
     TWBlockchainSui = 46,
+    TWBlockchainHydra = 47,
 };
 
 TW_EXTERN_C_END

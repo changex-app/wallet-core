@@ -1467,7 +1467,13 @@
     "symbol": "HYDRA",
     "decimals": 8,
     "blockchain": "Bitcoin",
-    "derivationPath": "m/88'/0'/0'",
+    "derivation": [
+      {
+        "path": "m/88'/0'/0'",
+        "xpub": "zpub",
+        "xprv": "zprv"
+      }
+    ],
     "curve": "secp256k1",
     "publicKeyType": "secp256k1",
     "p2pkhPrefix": 40,
@@ -1475,8 +1481,6 @@
     "hrp": "hc",
     "publicKeyHasher": "sha256ripemd",
     "base58Hasher": "sha256d",
-    "xpub": "zpub",
-    "xprv": "zprv",
     "explorer": {
       "url": "http://78.83.124.135:9197/",
       "txPath": "/tx/",

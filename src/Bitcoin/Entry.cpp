@@ -69,13 +69,15 @@ std::string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW
     const char* hrp = getFromPrefixHrpOrDefault(addressPrefix, coin);
 
     switch (coin) {
-<<<<<<< HEAD
         case TWCoinTypeBitcoin:
         case TWCoinTypeLitecoin:
             switch (derivation) {
                 case TWDerivationBitcoinLegacy:
                 case TWDerivationLitecoinLegacy:
                     return Address(publicKey, p2pkh).string();
+                
+                case TWDerivationBitcoinTestnet:
+                    return SegwitAddress::createTestnetFromPublicKey(publicKey).string();
 
                 case TWDerivationBitcoinSegwit:
                 case TWDerivationDefault:
@@ -102,43 +104,7 @@ std::string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW
         case TWCoinTypeRavencoin:
         case TWCoinTypeFiro:
         default:
-=======
-    case TWCoinTypeBitcoin:
-    case TWCoinTypeLitecoin:
-        switch (derivation) {
-        case TWDerivationBitcoinLegacy:
-        case TWDerivationLitecoinLegacy:
->>>>>>> 4394f3c0 (Format Bitcoin Entry sources)
             return Address(publicKey, p2pkh).string();
-
-        case TWDerivationBitcoinTestnet:
-            return SegwitAddress::createTestnetFromPublicKey(publicKey).string();
-
-        case TWDerivationBitcoinSegwit:
-        case TWDerivationDefault:
-        default:
-            return SegwitAddress(publicKey, hrp).string();
-        }
-
-    case TWCoinTypeDigiByte:
-    case TWCoinTypeViacoin:
-    case TWCoinTypeBitcoinGold:
-        return SegwitAddress(publicKey, hrp).string();
-
-    case TWCoinTypeBitcoinCash:
-        return BitcoinCashAddress(publicKey).string();
-
-    case TWCoinTypeECash:
-        return ECashAddress(publicKey).string();
-
-    case TWCoinTypeDash:
-    case TWCoinTypeDogecoin:
-    case TWCoinTypeMonacoin:
-    case TWCoinTypeQtum:
-    case TWCoinTypeRavencoin:
-    case TWCoinTypeFiro:
-    default:
-        return Address(publicKey, p2pkh).string();
     }
 }
 
@@ -172,6 +138,7 @@ Data Entry::addressToData(TWCoinType coin, const std::string& address) const {
     case TWCoinTypeDogecoin:
     case TWCoinTypeMonacoin:
     case TWCoinTypeQtum:
+    case TWCoinTypeHydra:
     case TWCoinTypeRavencoin:
     case TWCoinTypeFiro: {
         const auto addr = Address(address);

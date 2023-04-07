@@ -26,6 +26,10 @@ Result<Bitcoin::Transaction, Common::Proto::SigningError> TransactionSigner::sig
         plan = TransactionBuilder::plan(signingInput);
     }
     auto transaction = TransactionBuilder::build<Bitcoin::Transaction>(plan, input.toAddress, input.changeAddress, input.coinType, input.lockTime);
-    Bitcoin::SignatureBuilder<Bitcoin::Transaction> signer(std::move(input), plan, transaction, estimationMode);
+
+    Bitcoin::SigningMode signingMode =
+        estimationMode ? Bitcoin::SigningMode_SizeEstimationOnly : Bitcoin::SigningMode_Normal;
+
+    Bitcoin::SignatureBuilder<Bitcoin::Transaction> signer(std::move(input), plan, transaction, signingMode);
     return signer.sign();
 }

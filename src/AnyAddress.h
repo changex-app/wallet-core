@@ -10,6 +10,7 @@
 #include "PublicKey.h"
 
 #include <TrustWalletCore/TWCoinType.h>
+#include "Bitcoin/Address.h"
 #include <TrustWalletCore/TWPublicKey.h>
 #include <TrustWalletCore/TWData.h>
 #include <CoinEntry.h>
@@ -29,6 +30,14 @@ public:
     static AnyAddress* createAddress(const PublicKey& publicKey, enum TWCoinType coin, TWDerivation derivation = TWDerivationDefault, const PrefixVariant& prefix = std::monostate());
 
     Data getData() const;
+
+    static TW::Data dataFromString(const std::string& address, TWCoinType coin) {
+        if (coin == TWCoinTypeHydra) {
+            auto addr = Bitcoin::Address(address);
+            return {addr.bytes.begin() + 1, addr.bytes.end()};
+        }
+        return {};
+    }
 };
 
 inline bool operator==(const AnyAddress& lhs, const AnyAddress& rhs) {

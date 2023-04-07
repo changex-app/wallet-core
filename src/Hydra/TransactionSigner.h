@@ -12,6 +12,7 @@
 #include "../KeyPair.h"
 #include "../Result.h"
 #include "../proto/Hydra.pb.h"
+#include <Bitcoin/Signer.h>
 
 
 namespace TW::Hydra {

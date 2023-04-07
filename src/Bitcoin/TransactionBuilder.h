@@ -24,7 +24,7 @@ public:
     /// Plans a transaction by selecting UTXOs and calculating fees.
     static TransactionPlan plan(const SigningInput& input);
 
-    /// Builds a transaction with the selected input UTXOs, and one main output and an optional change output.
+    /// Builds a transaction with the selected input UTXOs, and one main output and an optional change output.x
     template <typename Transaction>
     static Result<Transaction, Common::Proto::SigningError> build(const TransactionPlan& plan, const std::string& toAddress,
                              const std::string& changeAddress, enum TWCoinType coin, uint32_t lockTime) {

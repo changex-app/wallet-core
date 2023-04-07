@@ -32,3 +32,9 @@ class Signer {
 };
 
 } // namespace TW::Bitcoin
+
+
+// bridge endpoint
+// priema query param chas - 1, 2, 3, 4, 5, 6, 24, 25, 26, etc...
+// order cron job
+// collect orders for X hours

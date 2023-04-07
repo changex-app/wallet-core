@@ -63,10 +63,6 @@ Result<HashPubkeyList, Common::Proto::SigningError> TransactionSigner<Transactio
 // Explicitly instantiate a Signers for compatible transactions.
 template class Bitcoin::TransactionSigner<Bitcoin::Transaction, TransactionBuilder>;
 template class Bitcoin::TransactionSigner<Zcash::Transaction, Zcash::TransactionBuilder>;
-<<<<<<< HEAD
-template class Bitcoin::TransactionSigner<Groestlcoin::Transaction, TransactionBuilder>;
-=======
 template class Bitcoin::TransactionSigner<Groestlcoin::Transaction, TransactionBuilder>;
 
 } // namespace TW::Bitcoin
->>>>>>> e5889a45 ([Fix] Even more fixes of namespace collisions in unity build (#2533))

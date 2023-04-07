@@ -156,11 +156,7 @@ Data TransactionNonTyped::buildERC1155TransferFromCall(const Data& from, const D
     return payload;
 }
 
-<<<<<<< HEAD
-
-=======
 /// TransactionEip1559
->>>>>>> 9dd8f12a ([ERC4337] Transactions support (#2891))
 Data TransactionEip1559::preHash(const uint256_t chainID) const {
     return Hash::keccak256(serialize(chainID));
 }

@@ -24,6 +24,8 @@
 #include <TrezorCrypto/bip39.h>
 #include <TrezorCrypto/cardano.h>
 #include <TrezorCrypto/curves.h>
+#include <iomanip>
+#include <iostream>
 
 #include <array>
 #include <cstring>
@@ -241,11 +243,13 @@ std::string HDWallet<seedSize>::getExtendedPrivateKeyAccount(TWPurpose purpose, 
     }
 
     const auto curve = TWCoinTypeCurve(coin);
-    const auto path = TW::derivationPath(coin, derivation);
-    auto derivationPath = DerivationPath({DerivationPathIndex(purpose, true), DerivationPathIndex(path.coin(), true)});
+
+    auto derivationPath = DerivationPath({DerivationPathIndex(purpose, true), DerivationPathIndex(coin, true)});
     auto node = getNode(*this, curve, derivationPath);
+
     auto fingerprintValue = fingerprint(&node, publicKeyHasher(coin));
-    hdnode_private_ckd(&node, account + 0x80000000);
+    hdnode_private_ckd(&node, (coin == TWCoinTypeHydra) ? 0x80000000 : (account + 0x80000000));
+
     return serialize(&node, fingerprintValue, version, false, base58Hasher(coin));
 }
 
@@ -256,11 +260,13 @@ std::string HDWallet<seedSize>::getExtendedPublicKeyAccount(TWPurpose purpose, T
     }
 
     const auto curve = TWCoinTypeCurve(coin);
-    const auto path = TW::derivationPath(coin, derivation);
-    auto derivationPath = DerivationPath({DerivationPathIndex(purpose, true), DerivationPathIndex(path.coin(), true)});
+
+    auto derivationPath = DerivationPath({DerivationPathIndex(purpose, true), DerivationPathIndex(coin, true)});
     auto node = getNode(*this, curve, derivationPath);
+
     auto fingerprintValue = fingerprint(&node, publicKeyHasher(coin));
-    hdnode_private_ckd(&node, account + 0x80000000);
+    hdnode_private_ckd(&node, (coin == TWCoinTypeHydra) ? 0x80000000 : (account + 0x80000000));
+
     hdnode_fill_public_key(&node);
     return serialize(&node, fingerprintValue, version, true, base58Hasher(coin));
 }

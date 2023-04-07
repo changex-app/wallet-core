@@ -28,7 +28,7 @@ public:
     static Bitcoin::Transaction build(const Bitcoin::TransactionPlan& plan, const std::string& toAddress,
                              const std::string& changeAddress, enum TWCoinType coin, uint32_t lockTime) {        
         coin = TWCoinTypeHydra;
-        Transaction tx;
+        Bitcoin::Transaction tx;
 
         if(plan.contract.bytes.size() > 0){
             if (plan.change > 0) {
@@ -50,7 +50,7 @@ public:
             tx.outputs.push_back(Bitcoin::TransactionOutput(plan.amount, plan.contract));
 
         }else{
-            tx = Bitcoin::TransactionBuilder::build<Bitcoin::Transaction>(plan, toAddress, changeAddress, coin, lockTime);
+            tx = Bitcoin::TransactionBuilder::build<Bitcoin::Transaction>(plan, toAddress, changeAddress, coin, lockTime).payload();
         }
         
         

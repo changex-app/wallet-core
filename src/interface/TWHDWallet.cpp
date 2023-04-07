@@ -7,6 +7,7 @@
 #include <TrustWalletCore/TWHDWallet.h>
 
 #include "../Coin.h"
+#include <iostream>
 #include "../HDWallet.h"
 #include "../Mnemonic.h"
 
@@ -103,8 +104,10 @@ struct TWPrivateKey *_Nonnull TWHDWalletGetKeyByCurve(struct TWHDWallet *_Nonnul
     return new TWPrivateKey{ wallet->impl.getKeyByCurve(curve, path)};
 }
 
-TWString *_Nonnull TWHDWalletGetExtendedPrivateKey(struct TWHDWallet *wallet, TWPurpose purpose, TWCoinType coin, TWHDVersion version) {
-    return new std::string(wallet->impl.getExtendedPrivateKey(purpose, coin, version));
+TWString* _Nonnull TWHDWalletGetExtendedPrivateKey(struct TWHDWallet* wallet, TWPurpose purpose, TWCoinType coin, TWHDVersion version) {
+    auto extendedPrivateKey = wallet->impl.getExtendedPrivateKey(purpose, coin, version);
+    std::cout << "Extended private key: " << extendedPrivateKey << std::endl;
+    return new std::string(extendedPrivateKey);
 }
 
 TWString *_Nonnull TWHDWalletGetExtendedPublicKey(struct TWHDWallet *wallet, TWPurpose purpose, TWCoinType coin, TWHDVersion version) {

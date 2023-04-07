@@ -14,6 +14,7 @@
 #include "AnyAddress.h"
 #include "BinaryCoding.h"
 #include "../Bitcoin/Script.h"
+#include "Bitcoin/Address.h"
 #include "../Ethereum/RLP.h"
 #include "../Ethereum/ABI.h"
 #include "../Ethereum/Transaction.h"
@@ -57,10 +58,10 @@ std::string getArrayElemType(const std::string& arrayType) {
 
 void insert(Data& script, Data& input){
     if(input.size() < Hydra::OpCode::OP_PUSHDATA1){
-        script.push_back(static_cast<byte>(input.size()));
+        script.push_back(static_cast<TW::byte>(input.size()));
     } else if (input.size() <= 0xff){
         append(script, Hydra::OpCode::OP_PUSHDATA1);
-        script.push_back(static_cast<byte>(input.size()));
+        script.push_back(static_cast<TW::byte>(input.size()));
     } else if(input.size() <= 0xffff){
         append(script, Hydra::OpCode::OP_PUSHDATA2);
 
@@ -100,8 +101,12 @@ Bitcoin::Script Hydra::TokenScript::buildTokenScript(int64_t gasLimit, const std
 
     uint256_t amountNumbered = load(amount);
 
+    auto addr = Bitcoin::Address(to);
+
+    Data toAddressBytes(addr.bytes.begin() + 1, addr.bytes.end());
+
     // Building the transfer function
-    Data data = Ethereum::TransactionNonTyped::buildERC20TransferCall(AnyAddress::dataFromString(to,TWCoinTypeHydra), amountNumbered);
+    Data data = Ethereum::TransactionNonTyped::buildERC20TransferCall(toAddressBytes, amountNumbered);
 
     //Insert the encoded data
     insert(script, data);

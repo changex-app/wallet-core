@@ -4,15 +4,14 @@
 // terms governing use, modification, and redistribution, is contained in the
 // file LICENSE at the root of the source code distribution tree.
 
-#include "../interface/TWTestUtilities.h"
-
-#include <TrustWalletCore/TWSegwitAddress.h>
+#include "TestUtilities.h"
 #include <TrustWalletCore/TWBitcoinAddress.h>
 #include <TrustWalletCore/TWBitcoinScript.h>
-#include <TrustWalletCore/TWHash.h>
 #include <TrustWalletCore/TWHDWallet.h>
 #include <TrustWalletCore/TWHRP.h>
+#include <TrustWalletCore/TWHash.h>
 #include <TrustWalletCore/TWPrivateKey.h>
+#include <TrustWalletCore/TWSegwitAddress.h>
 
 #include <gtest/gtest.h>
 
