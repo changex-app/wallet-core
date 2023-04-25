@@ -277,6 +277,8 @@ TEST(Coin, DeriveAddress) {
             EXPECT_EQ(address, "stars1hkfq3zahaqkkzx5mjnamwjsfpq2jk7z0d8g78s");
             break;
         case TWCoinTypeJuno:
+            EXPECT_EQ(address, "juno1hkfq3zahaqkkzx5mjnamwjsfpq2jk7z00fucta");
+            break;
         case TWCoinTypeStride:
             EXPECT_EQ(address, "stride1hkfq3zahaqkkzx5mjnamwjsfpq2jk7z06sllcd");
             break;
@@ -327,6 +329,7 @@ TEST(Coin, DeriveAddress) {
             break;
             // no default branch here, intentionally, to better notice any missing coins
         }
+    }
 }
 
 int countThreadReady = 0;

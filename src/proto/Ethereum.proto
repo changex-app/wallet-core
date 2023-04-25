@@ -9,8 +9,6 @@ message ContractCallParam {
     repeated bytes value = 3;
 }
 
-import "Common.proto";
-
 // Transaction (transfer, smart contract call, ...)
 message Transaction {
     // Native coin transfer transaction

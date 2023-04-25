@@ -69,41 +69,11 @@ std::string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW
     const char* hrp = getFromPrefixHrpOrDefault(addressPrefix, coin);
 
     switch (coin) {
-        case TWCoinTypeBitcoin:
-        case TWCoinTypeLitecoin:
-            switch (derivation) {
-                case TWDerivationBitcoinLegacy:
-                case TWDerivationLitecoinLegacy:
-                    return Address(publicKey, p2pkh).string();
-                
-                case TWDerivationBitcoinTestnet:
-                    return SegwitAddress::createTestnetFromPublicKey(publicKey).string();
-
-                case TWDerivationBitcoinSegwit:
-                case TWDerivationDefault:
-                default:
-                    return SegwitAddress(publicKey, hrp).string();
-            }
-
-        case TWCoinTypeDigiByte:
-        case TWCoinTypeViacoin:
-        case TWCoinTypeBitcoinGold:
-            return SegwitAddress(publicKey, hrp).string();
-
-        case TWCoinTypeBitcoinCash:
-            return BitcoinCashAddress(publicKey).string();
-
-        case TWCoinTypeECash:
-            return ECashAddress(publicKey).string();
-
-        case TWCoinTypeDash:
-        case TWCoinTypeDogecoin:
-        case TWCoinTypeMonacoin:
-        case TWCoinTypeQtum:
-        case TWCoinTypeHydra:
-        case TWCoinTypeRavencoin:
-        case TWCoinTypeFiro:
-        default:
+    case TWCoinTypeBitcoin:
+    case TWCoinTypeLitecoin:
+        switch (derivation) {
+        case TWDerivationBitcoinLegacy:
+        case TWDerivationLitecoinLegacy:
             return Address(publicKey, p2pkh).string();
 
         case TWDerivationBitcoinTestnet:
