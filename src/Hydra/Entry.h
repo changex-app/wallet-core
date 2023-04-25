@@ -1,4 +1,4 @@
-// Copyright © 2017-2020 Trust Wallet.
+// Copyright © 2017-2023 Trust Wallet.
 //
 // This file is part of Trust. The full Trust copyright notice, including
 // terms governing use, modification, and redistribution, is contained in the
@@ -9,10 +9,10 @@
 #include "../CoinEntry.h"
 
 namespace TW::Hydra {
-
 /// Hydra entry dispatcher.
+
 /// Note: do not put the implementation here (no matter how simple), to avoid having coin-specific includes in this file
-class Entry: public CoinEntry {
+class Entry final : public CoinEntry {
 public:
     virtual bool validateAddress(TWCoinType coin, const std::string& address, const PrefixVariant& addressPrefix) const;
     virtual std::string deriveAddress(TWCoinType coin, const PublicKey& publicKey, TWDerivation derivation, const PrefixVariant& addressPrefix) const;

@@ -106,7 +106,6 @@ struct TWPrivateKey *_Nonnull TWHDWalletGetKeyByCurve(struct TWHDWallet *_Nonnul
 
 TWString* _Nonnull TWHDWalletGetExtendedPrivateKey(struct TWHDWallet* wallet, TWPurpose purpose, TWCoinType coin, TWHDVersion version) {
     auto extendedPrivateKey = wallet->impl.getExtendedPrivateKey(purpose, coin, version);
-    std::cout << "Extended private key: " << extendedPrivateKey << std::endl;
     return new std::string(extendedPrivateKey);
 }
 

@@ -121,6 +121,7 @@ CoinEntry* coinDispatcher(TWCoinType coinType) {
         // #coin-list#
         case TWBlockchainBitcoin: entry = &bitcoinDP; break;
         case TWBlockchainHydra: entry = &hydraDP; break;
+        case TWBlockchainEthereum: entry = &ethereumDP; break;
         case TWBlockchainVechain: entry = &vechainDP; break;
         case TWBlockchainTron: entry = &tronDP; break;
         case TWBlockchainIcon: entry = &iconDP; break;
@@ -158,7 +159,6 @@ CoinEntry* coinDispatcher(TWCoinType coinType) {
         case TWBlockchainThorchain: entry = &thorchainDP; break;
         case TWBlockchainRonin: entry = &roninDP; break;
         case TWBlockchainKusama: entry = &kusamaDP; break;
-        case TWBlockchainEthereum: entry = &ethereumDP; break;
         case TWBlockchainNervos: entry = &NervosDP; break;
         case TWBlockchainEverscale: entry = &EverscaleDP; break;
         case TWBlockchainAptos: entry = &AptosDP; break;
