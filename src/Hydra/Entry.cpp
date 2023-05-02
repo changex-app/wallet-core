@@ -52,7 +52,6 @@ bool Entry::validateAddress(TWCoinType coin, const string& address, const Prefix
 string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TWDerivation derivation, const PrefixVariant& addressPrefix) const {
 
     byte prefix = TW::Hydra::toByte(addressPrefix);
-    std::cout << "prefix is " << prefix << std::endl;
     return Bitcoin::Address(publicKey, prefix).string();
 }
 

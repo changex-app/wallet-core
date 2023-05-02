@@ -1975,9 +1975,16 @@
     "blockchain": "Bitcoin",
     "derivation": [
       {
+        "name": "segwit",
         "path": "m/88'/0'/0'",
         "xpub": "zpub",
         "xprv": "zprv"
+      },
+      {
+        "name": "legacy",
+        "path": "m/44'/0'/0'/0/0",
+        "xpub": "xpub",
+        "xprv": "xprv"
       }
     ],
     "curve": "secp256k1",
