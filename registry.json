@@ -1972,7 +1972,7 @@
     "coinId": 609,
     "symbol": "HYDRA",
     "decimals": 8,
-    "blockchain": "Bitcoin",
+    "blockchain": "Hydra",
     "derivation": [
       {
         "name": "segwit",

@@ -23,7 +23,7 @@ TEST(TWHydraCoinType, TWCoinType) {
     auto name = WRAPS(TWCoinTypeConfigurationGetName(TWCoinTypeHydra));
 
     ASSERT_EQ(TWCoinTypeConfigurationGetDecimals(TWCoinTypeHydra), 8);
-    ASSERT_EQ(TWBlockchainBitcoin, TWCoinTypeBlockchain(TWCoinTypeHydra));
+    ASSERT_EQ(TWBlockchainHydra, TWCoinTypeBlockchain(TWCoinTypeHydra));
     ASSERT_EQ(0x3F, TWCoinTypeP2shPrefix(TWCoinTypeHydra));
     ASSERT_EQ(0x0, TWCoinTypeStaticPrefix(TWCoinTypeHydra));
     assertStringsEqual(symbol, "HYDRA");
