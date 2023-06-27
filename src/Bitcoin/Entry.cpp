@@ -84,16 +84,6 @@ std::string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW
         default:
             return SegwitAddress(publicKey, hrp).string();
         }
-    case TWCoinTypeHydra:
-        switch (derivation) {
-        case TWDerivationHydraLegacy:
-            return Address(publicKey, p2pkh).string();
-
-        case TWDerivationHydraSegwit:
-        case TWDerivationDefault:
-        default:
-            return SegwitAddress(publicKey, hrp).string();
-        }
     case TWCoinTypeDigiByte:
     case TWCoinTypeViacoin:
     case TWCoinTypeBitcoinGold:
@@ -111,6 +101,7 @@ std::string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW
     case TWCoinTypeQtum:
     case TWCoinTypeRavencoin:
     case TWCoinTypeFiro:
+    case TWCoinTypeHydra:
     default:
         return Address(publicKey, p2pkh).string();
     }

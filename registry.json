@@ -1975,16 +1975,9 @@
     "blockchain": "Hydra",
     "derivation": [
       {
-        "name": "segwit",
         "path": "m/88'/0'/0'",
         "xpub": "zpub",
         "xprv": "zprv"
-      },
-      {
-        "name": "legacy",
-        "path": "m/44'/0'/0'/0/0",
-        "xpub": "xpub",
-        "xprv": "xprv"
       }
     ],
     "curve": "secp256k1",
@@ -1995,7 +1988,7 @@
     "publicKeyHasher": "sha256ripemd",
     "base58Hasher": "sha256d",
     "explorer": {
-      "url": "http://78.83.124.135:9197/",
+      "url": "https://explorer.hydrachain.org",
       "txPath": "/tx/",
       "accountPath": "/address/"
     },

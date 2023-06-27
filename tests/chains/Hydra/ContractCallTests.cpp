@@ -199,16 +199,16 @@ TEST(Hydra, TestContractCallMaxAmountTransactionBuilder){
     
     std::vector<int64_t> amounts = {12545182455, 19152684041};
     auto utxos = buildTestHydraUTXOs(amounts);
-    auto bitcoinSigningInput = buildBitcoinSigningInput(31697866500, 3600, utxos, false, TWCoinTypeHydra, "4ab26aaa1803daa638910d71075c06386e391147");
+    auto bitcoinSigningInput = buildBitcoinSigningInput(30000000000, 3600, utxos, false, TWCoinTypeHydra, "4ab26aaa1803daa638910d71075c06386e391147");
 
-   auto contractCallParam1 = Hydra::ContractCallParam();
+    auto contractCallParam1 = Hydra::ContractCallParam();
     contractCallParam1.type = "address[]";
     contractCallParam1.value.push_back(AnyAddress::dataFromString("HQMfzgnCPSitwMKFVSnrrdEhNjPXuKV7Hq", TWCoinTypeHydra));
     contractCallParam1.value.push_back(AnyAddress::dataFromString("HQMfzgnCPSitwMKFVSnrrdEhNjPXuKV7Hq", TWCoinTypeHydra));
 
     auto contractCallParam2 = Hydra::ContractCallParam();
     contractCallParam2.type = "uint256";
-    contractCallParam2.value.push_back(store(31697866500));
+    contractCallParam2.value.push_back(store(30000000000));
 
     auto contractCallParam3 = Hydra::ContractCallParam();
     contractCallParam3.type = "address";
@@ -232,11 +232,11 @@ TEST(Hydra, TestContractCallMaxAmountTransactionBuilder){
     auto transaction = Hydra::TransactionBuilder::build<Bitcoin::Transaction>(plan, "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", "HGQWcFAkv4WEC5dyknxrv6ZoPhD3rMCRdg", TWCoinTypeHydra,0);
 
     {
-        ASSERT_EQ(plan.amount, 31689866496);
-        ASSERT_EQ(plan.change, 0);
+        ASSERT_EQ(plan.amount, 30000000000);
+        ASSERT_EQ(plan.change, 1689866496);
         ASSERT_EQ(plan.fee, 8000000);
         ASSERT_EQ(plan.utxos.size(), 2);
-        ASSERT_EQ(transaction.outputs.size(), 1);
+        ASSERT_EQ(transaction.outputs.size(), 2);
         ASSERT_EQ(plan.error, Common::Proto::SigningError::OK);
 
     }
