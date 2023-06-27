@@ -71,17 +71,19 @@ Bitcoin::TransactionPlan TransactionBuilder::plan(const TW::Hydra::SigningInput&
     auto contract = signingInput.contract;
     auto contractCallInput = signingInput.contractCallInput;
     bool isTokenTransaction = false;
-    if(contract.to != "" && contractCallInput.functionName == ""){
+    bool hasInputAmount = false;
+    if (contract.to != "" && contractCallInput.functionName == "") {
         isTokenTransaction = true;
         plan.contract = TokenScript::buildTokenScript(contract.gasLimit, contract.to, contract.amount ,input.toAddress);
         plan.amount = contract.gasLimit * contract.gasPrice;
 
-    }else if(contractCallInput.functionName != ""){
+    } else if (contractCallInput.functionName != "") {
         isTokenTransaction = true;
         plan.contract = TokenScript::buildContractCallScript(contractCallInput.gasLimit, contractCallInput.functionName, contractCallInput.parameters, input.toAddress);
         plan.amount = contractCallInput.gasLimit * contractCallInput.gasPrice;
         
-        if(contractCallInput.functionName == "swapExactHYDRAForTokens"){
+        if(input.amount > 0){
+            hasInputAmount = true;
             plan.amount += input.amount;
         }
     }
@@ -137,7 +139,7 @@ Bitcoin::TransactionPlan TransactionBuilder::plan(const TW::Hydra::SigningInput&
                 plan.availableAmount = Bitcoin::InputSelector<Bitcoin::UTXO>::sum(plan.utxos);
                
                 // Check if the contract call is swap, if true get the 
-                if(contractCallInput.functionName == "swapExactHYDRAForTokens"){
+                if(hasInputAmount){
                     plan.amount -= input.amount;
                 }
 
