@@ -10,6 +10,7 @@
 #include "TWData.h"
 #include "TWString.h"
 #include "TWPrivateKey.h"
+#include "TWCoinType.h"
 
 TW_EXTERN_C_BEGIN
 
@@ -29,7 +30,7 @@ struct TWBitcoinMessageSigner;
 /// \note Address is derived assuming compressed public key format.
 /// \returns the signature, Base64-encoded.  On invalid input empty string is returned. Returned object needs to be deleteed after use.
 TW_EXPORT_STATIC_METHOD
-TWString* _Nonnull TWBitcoinMessageSignerSignMessage(const struct TWPrivateKey* _Nonnull privateKey, TWString* _Nonnull address, TWString* _Nonnull message);
+TWString* _Nonnull TWBitcoinMessageSignerSignMessage(const struct TWPrivateKey* _Nonnull privateKey, TWString* _Nonnull address, enum TWCoinType coin, TWString* _Nonnull message);
 
 /// Verify signature for a message.
 ///
@@ -38,6 +39,6 @@ TWString* _Nonnull TWBitcoinMessageSignerSignMessage(const struct TWPrivateKey* 
 /// \param signature: in Base64-encoded form.
 /// \returns false on any invalid input (does not throw).
 TW_EXPORT_STATIC_METHOD
-bool TWBitcoinMessageSignerVerifyMessage(TWString* _Nonnull address, TWString* _Nonnull message, TWString* _Nonnull signature);
+bool TWBitcoinMessageSignerVerifyMessage(TWString* _Nonnull address, TWString* _Nonnull message, TWString* _Nonnull signature, enum TWCoinType coin);
 
 TW_EXTERN_C_END
