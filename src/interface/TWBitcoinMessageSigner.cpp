@@ -5,18 +5,19 @@
 // file LICENSE at the root of the source code distribution tree.
 
 #include <TrustWalletCore/TWBitcoinMessageSigner.h>
+#include <TrustWalletCore/TWCoinType.h>
 
 #include "Bitcoin/MessageSigner.h"
 
-TWString* _Nonnull TWBitcoinMessageSignerSignMessage(const struct TWPrivateKey* _Nonnull privateKey, TWString* _Nonnull address, TWString* _Nonnull message) {
+TWString* _Nonnull TWBitcoinMessageSignerSignMessage(const struct TWPrivateKey* _Nonnull privateKey, TWString* _Nonnull address, enum TWCoinType coin, TWString* _Nonnull message) {
     try {
-        const auto signature = TW::Bitcoin::MessageSigner::signMessage(privateKey->impl, TWStringUTF8Bytes(address), TWStringUTF8Bytes(message), true);
+        const auto signature = TW::Bitcoin::MessageSigner::signMessage(privateKey->impl, TWStringUTF8Bytes(address), TWStringUTF8Bytes(message), coin, true);
         return TWStringCreateWithUTF8Bytes(signature.c_str());
     } catch (...) {
         return TWStringCreateWithUTF8Bytes("");
     }
 }
 
-bool TWBitcoinMessageSignerVerifyMessage(TWString* _Nonnull address, TWString* _Nonnull message, TWString* _Nonnull signature) {
-    return TW::Bitcoin::MessageSigner::verifyMessage(TWStringUTF8Bytes(address), TWStringUTF8Bytes(message), TWStringUTF8Bytes(signature));
+bool TWBitcoinMessageSignerVerifyMessage(TWString* _Nonnull address, TWString* _Nonnull message, TWString* _Nonnull signature, enum TWCoinType coin) {
+    return TW::Bitcoin::MessageSigner::verifyMessage(TWStringUTF8Bytes(address), TWStringUTF8Bytes(message), TWStringUTF8Bytes(signature), coin);
 }

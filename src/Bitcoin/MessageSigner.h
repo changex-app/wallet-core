@@ -8,6 +8,8 @@
 
 #include "Data.h"
 #include "PrivateKey.h"
+#include "../../include/TrustWalletCore/TWCoinType.h"
+
 
 #include <string>
 
@@ -29,33 +31,34 @@ class MessageSigner {
     ///    that's also supported here as well for compatibility.
     /// Returns the signature, Base64-encoded.
     /// Throws on invalid input.
-    static std::string signMessage(const PrivateKey& privateKey, const std::string& address, const std::string& message, bool compressed = true);
-  
-    /// Verify signature for a message.
-    /// address: address to use, only legacy is supported
-    /// message: the message signed (without prefix)
-    /// signature: in Base64-encoded form.
-    /// Returns false on any invalid input (does not throw).
-    static bool verifyMessage(const std::string& address, const std::string& message, const std::string& signature) noexcept;
+      static std::string signMessage(const PrivateKey& privateKey, const std::string& address, const std::string& message, enum TWCoinType coin, bool compressed = true);
 
-    /// Verify signature for a message.
-    /// Address: address to use, only legacy is supported
-    /// message: the message signed (without prefix)
-    /// signature: in binary form.
-    /// May throw
-    static bool verifyMessage(const std::string& address, const std::string& message, const Data& signature);
+      /// Verify signature for a message.
+      /// address: address to use, only legacy is supported
+      /// message: the message signed (without prefix)
+      /// signature: in Base64-encoded form.
+      /// Returns false on any invalid input (does not throw).
+      static bool verifyMessage(const std::string& address, const std::string& message, const std::string& signature, enum TWCoinType coin) noexcept;
 
-    /// Recover address from signature and message. May throw.
-    static std::string recoverAddressFromMessage(const std::string& message, const Data& signature);
+      /// Verify signature for a message.
+      /// Address: address to use, only legacy is supported
+      /// message: the message signed (without prefix)
+      /// signature: in binary form.
+      /// May throw
+      static bool verifyMessage(const std::string& address, const std::string& message, const Data& signature, enum TWCoinType coin);
 
-    /// Append prefix and compute hash for a message
-    static Data messageToHash(const std::string& message);
+      /// Recover address from signature and message. May throw.
+      static std::string recoverAddressFromMessage(const std::string& message, const Data& signature, enum TWCoinType coin);
 
-    static constexpr auto MessagePrefix = "Bitcoin Signed Message:\n";
-    static const byte DigestLength = 32;
-    static const byte SignatureRSLength = 64;
-    static constexpr byte SignatureRSVLength = SignatureRSLength + 1;
-    static const byte VOffset = 27;
+      /// Append prefix and compute hash for a message
+      static Data messageToHash(const std::string& message, enum TWCoinType coin);
+
+      static constexpr auto MessagePrefix = "Bitcoin Signed Message:\n";
+      static constexpr auto MessageHydraPrefix = "HYDRA Signed Message:\n";
+      static const byte DigestLength = 32;
+      static const byte SignatureRSLength = 64;
+      static constexpr byte SignatureRSVLength = SignatureRSLength + 1;
+      static const byte VOffset = 27;
 };
 
 } // namespace TW::Bitcoin
