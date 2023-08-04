@@ -12,13 +12,13 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "WalletCore",
-            url: "https://github.com/changex-app/wallet-core/releases/download/3.1.32/WalletCore.xcframework.zip",
-            checksum: "3bb7d92db6c9629a7b7fd444a43bdee3179fe7950da13fedd9592b971a67232f"
+            url: "https://github.com/changex-app/wallet-core/releases/download/3.1.35/WalletCore.xcframework.zip",
+            checksum: "d48813549dbf6da40fd485ced18f57099d0f7749cd4c86dd44728c07714df0ab"
         ),
         .binaryTarget(
             name: "SwiftProtobuf",
-            url: "https://github.com/changex-app/wallet-core/releases/download/3.1.32/SwiftProtobuf.xcframework.zip",
-            checksum: "da40459ad1f916c88e0d7a2bed587d795604a4c5ae796b840c81ad15f5e99967"
+            url: "https://github.com/changex-app/wallet-core/releases/download/3.1.35/SwiftProtobuf.xcframework.zip",
+            checksum: "5d60b38a4c949757e8ccbc7d154a53d4ce88669f19ca0ddfe38c82cd71e04612"
         )
     ]
 )
